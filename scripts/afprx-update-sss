@@ -22,6 +22,10 @@ tar -xzf $BLACKLISTS_FILE --directory $BLACKLIST_DIRECTORY
 /bin/rm -R $BLACKLIST_DIRECTORY/BL
 /bin/rm $BLACKLISTS_FILE
 
+# Initialize blacklists
+/bin/squidGuard -C all
+/bin/chown -R proxy:proxy $BLACKLIST_DIRECTORY/*
+
 # Restart the proxy server
 /usr/bin/afprx-restart
 
