@@ -6,6 +6,6 @@ A docker [container](https://hub.docker.com/r/kolyunya/afprx/) with a proxy serv
 ## Installation
 Just start the container and you are good to go. No configuration is required.
 
-docker run --detach --tty --net=host --restart=always --name=afprx kolyunya/afprx
+`docker run --detach --tty --net=host --restart=always --name=afprx kolyunya/afprx`
 
 ## Blacklist source selection
