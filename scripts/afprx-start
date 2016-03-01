@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Start services.
+service cron start
+service squid3 start
+
+# Update blacklists.
+afprx-update

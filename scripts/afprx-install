@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Update software repositories.
+apt-get update
+
+# Wget is used to download blacklists.
+apt-get install --yes wget
+
+# Cron is used to update blacklists automatically.
+apt-get install --yes cron
+
+# We already copied custom squid configs so we want to keep them.
+apt-get install --yes squidguard -o Dpkg::Options::="--force-confold"
+apt-get install --yes squid3 -o Dpkg::Options::="--force-confold"
+
+# Add a cron job which will update automatic blacklist.
+ln -s /usr/bin/afprx-update /etc/cron.daily/

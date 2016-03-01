@@ -1,0 +1,29 @@
+#!/bin/bash
+# This scipt updates blacklists from http://www.shallalist.de/
+
+# Blacklists file URL
+BLACKLISTS_URL="http://www.shallalist.de/Downloads/shallalist.tar.gz"
+
+# Blacklists directory
+BLACKLIST_DIRECTORY="/var/lib/squidguard/db"
+
+# Blacklists archive
+BLACKLISTS_FILE=$BLACKLIST_DIRECTORY/blacklist.tar.gz
+
+# Clear current blacklists
+/bin/rm -R $BLACKLIST_DIRECTORY/* 2>/dev/null
+
+# Download the latest version of blacklists
+/usr/bin/wget --quiet --output-document=$BLACKLISTS_FILE $BLACKLISTS_URL
+
+# Extract blacklists
+tar -xzf $BLACKLISTS_FILE --directory $BLACKLIST_DIRECTORY
+/bin/cp -R $BLACKLIST_DIRECTORY/BL/* $BLACKLIST_DIRECTORY/
+/bin/rm -R $BLACKLIST_DIRECTORY/BL
+/bin/rm $BLACKLISTS_FILE
+
+# Restart the proxy server
+/usr/bin/afprx-restart
+
+# Set default update source
+/bin/ln -fs /usr/bin/afprx-update-sss /usr/bin/afprx-update
